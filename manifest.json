@@ -1,0 +1,12 @@
+{
+  "name": "Spoiler blocker",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [
+   {
+     "matches": ["<all_urls>"],
+     "js": ["script.js"]
+   }
+ ],
+  "options_page": "options.html"
+}
