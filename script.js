@@ -9,7 +9,20 @@ chrome.storage.sync.get("spoilerItem", function (results)) {
 }
 
 $(function() {
+	updatelistview(); //todo
+	searchforspoilers(); //todo
 
+	$('yes-button').click(function (evt){
+		//enable spoiler
+	});
+
+	$('no-button').click(function (evt){
+		//disable spoiler
+	});
+
+	$('save-button').click(function (evt)){
+
+	}
 })
 
 
