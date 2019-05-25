@@ -12,21 +12,32 @@ $(function() {
 	updatelistview(); //todo
 	searchforspoilers(); //todo
 
-	$('yes-button').click(function (evt){
-		//enable spoiler
+	var enable_blocker = true;
+
+	$('#yes-button').click(function (evt){
+		enable_blocker = true;
 	});
 
-	$('no-button').click(function (evt){
-		//disable spoiler
+	$('#no-button').click(function (evt){
+		enable_blocker = false;
+		//grayout submit button
 	});
 
-	$('save-button').click(function (evt)){
-
+	$('#submit-button').click(function (evt)){
+		if(enable_blocker == true) {
+			itemAdd = $('.textbox').val().toLowerCase();
+			spoilerlist['spoilerItem'].push(itemAdd);
+			savespoilerlist();
+			$('.textbox').val('');
+			updatelistview();
+			searchforspoilers();
+		}
 	}
+
+	var observer = new MutationObserver(function(mutations, observer) {
+	searchforspoilers();
 })
-
-
-
+})
 
 function savespoilerlist(){
 	chrome.storage.sync.set({
