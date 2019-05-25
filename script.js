@@ -1,4 +1,5 @@
 var spoilerlist;
+var enable_blocker = true;
 
 chrome.storage.sync.get("spoilerItem", function (results)) {
 	spoilerlist = results;
@@ -9,10 +10,8 @@ chrome.storage.sync.get("spoilerItem", function (results)) {
 }
 
 $(function() {
-	updatelistview(); //todo
+	updatelistview();
 	searchforspoilers(); //todo
-
-	var enable_blocker = true;
 
 	$('#yes-button').click(function (evt){
 		enable_blocker = true;
@@ -23,7 +22,7 @@ $(function() {
 		//grayout submit button
 	});
 
-	$('#submit-button').click(function (evt)){
+	$('#submit-button').click(function (evt){
 		if(enable_blocker == true) {
 			itemAdd = $('.textbox').val().toLowerCase();
 			spoilerlist['spoilerItem'].push(itemAdd);
@@ -32,11 +31,16 @@ $(function() {
 			updatelistview();
 			searchforspoilers();
 		}
-	}
+	});
 
 	var observer = new MutationObserver(function(mutations, observer) {
-	searchforspoilers();
-})
+		searchforspoilers();
+	});
+
+	observer.observe($('[id^topnews_main_stream_]').get(0), {
+		subtree: true,
+		attributes: true
+	});
 })
 
 function savespoilerlist(){
@@ -48,4 +52,31 @@ function savespoilerlist(){
 		}
 	});
 }
+
+function updatelistview(){
+	if(spoilerlist["spoilerItem"] != null) {
+		$('#listview').empty();
+		var html = '<ul>';
+		for (var i = 0; i<spoilerlist["spoilerItem"].length; i++) {
+			html += '<li><a class="item" href="#">'+spoilerlist['spoilerItem'][i]+"</a></li>";
+		}
+		html+='</ul>';
+		$('#listview').append(html);
+	}
+}
+
+function searchforspoilers(){
+	if(spoilerlist["spoilerItem"] != null&&enable_blocker==true) {
+		var searchstr="";
+		spoilerlist["spoilerItem"].forEach(function(item){
+			searchstr = searchstr + "p:contains(" +item+")";
+		});
+		searchstr = searchstr.substring(0, searchstr.length-2);
+		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
+	}
+}
+
+
+
+
 
