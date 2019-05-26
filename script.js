@@ -1,13 +1,13 @@
 var spoilerlist;
 var enable_blocker = true;
 
-chrome.storage.sync.get("spoilerItem", function (results)) {
+chrome.storage.sync.get("spoilerItem", function (results) {
 	spoilerlist = results;
 	if(spoilerlist['spoilerItem'] == null) {
 		spoilerlist = {'spoilerItem' : []};
 		savespoilerlist();
 	}
-}
+});
 
 $(function() {
 	updatelistview();
@@ -65,7 +65,7 @@ $(function() {
 		subtree: true,
 		attributes: true
 	});
-})
+});
 
 function savespoilerlist(){
 	chrome.storage.sync.set({
