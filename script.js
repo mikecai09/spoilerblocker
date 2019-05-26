@@ -15,11 +15,35 @@ $(function() {
 
 	$('#yes-button').click(function (evt){
 		enable_blocker = true;
+
+		$('#yes-button').css('color','black');
+		$('#yes-button').css('background-color','#FFF5EE');
+		$('#yes-button:hover').css('cursor','default');
+		$('#yes-button:hover').css('background-color','#FAEBD7');
+
+		$('#no-button').css('color','#D3D3D3');
+		$('#no-button').css('background-color','#A9A9A9');
+		$('#no-button:hover').css('cursor','pointer');
+		$('#no-button:hover').css('background-color','#808080');
 	});
 
 	$('#no-button').click(function (evt){
 		enable_blocker = false;
 		//grayout submit button
+		$('#no-button').css('color','black');
+		$('#no-button').css('background-color','#FFF5EE');
+		$('#no-button:hover').css('cursor','default');
+		$('#no-button:hover').css('background-color','#FAEBD7');
+
+		$('#yes-button').css('color','#D3D3D3');
+		$('#yes-button').css('background-color','#A9A9A9');
+		$('#yes-button:hover').css('cursor','pointer');
+		$('#yes-button:hover').css('background-color','#808080');
+
+		$('#submit-button').css('color','#D3D3D3');
+		$('#submit-button').css('background-color','#A9A9A9');
+		$('#submit-button:hover').css('cursor','pointer');
+		$('#submit-button:hover').css('background-color','#808080');
 	});
 
 	$('#submit-button').click(function (evt){
