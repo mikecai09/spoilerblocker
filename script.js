@@ -11,7 +11,7 @@ chrome.storage.sync.get("spoilerItem", function (results) {
 
 $(function() {
 	updatelistview();
-	searchforspoilers(); //todo
+	// searchforspoilers();
 
 	$('#yes-button').click(function (evt){
 		enable_blocker = true;
@@ -25,6 +25,11 @@ $(function() {
 		$('#no-button').css('background-color','#A9A9A9');
 		$('#no-button:hover').css('cursor','pointer');
 		$('#no-button:hover').css('background-color','#808080');
+
+		$('#submit-button').css('color','black');
+		$('#submit-button').css('background-color','#FFF5EE');
+		$('#submit-button:hover').css('cursor','pointer');
+		$('#submit-button:hover').css('background-color','#FAEBD7');
 	});
 
 	$('#no-button').click(function (evt){
@@ -42,29 +47,38 @@ $(function() {
 
 		$('#submit-button').css('color','#D3D3D3');
 		$('#submit-button').css('background-color','#A9A9A9');
-		$('#submit-button:hover').css('cursor','pointer');
+		$('#submit-button:hover').css('cursor','default');
 		$('#submit-button:hover').css('background-color','#808080');
 	});
 
 	$('#submit-button').click(function (evt){
 		if(enable_blocker == true) {
-			itemAdd = $('.textbox').val().toLowerCase();
+			itemAdd = $('#textbox').val().toLowerCase();
 			spoilerlist['spoilerItem'].push(itemAdd);
 			savespoilerlist();
-			$('.textbox').val('');
+			$('#textbox').val('');
 			updatelistview();
-			searchforspoilers();
+			// searchforspoilers();
 		}
 	});
 
-	var observer = new MutationObserver(function(mutations, observer) {
-		searchforspoilers();
+	$('#clear-button').click(function (evt){
+		spoilerlist = {
+			'spoilerItem' : []
+		};
+		savespoilerlist();
+		$('#textbox').val('');
+		updatelistview();
+		// searchforspoilers();
 	});
+	// var observer = new MutationObserver(function(mutations, observer) {
+	// 	searchforspoilers();
+	// });
 
-	observer.observe($('[id^topnews_main_stream_]').get(0), {
-		subtree: true,
-		attributes: true
-	});
+	// observer.observe($('[id^topnews_main_stream_]').get(0), {
+	// 	subtree: true,
+	// 	attributes: true
+	// });
 });
 
 function savespoilerlist(){
@@ -89,16 +103,16 @@ function updatelistview(){
 	}
 }
 
-function searchforspoilers(){
-	if(spoilerlist["spoilerItem"] != null&&enable_blocker==true) {
-		var searchstr="";
-		spoilerlist["spoilerItem"].forEach(function(item){
-			searchstr = searchstr + "p:contains(" +item+")";
-		});
-		searchstr = searchstr.substring(0, searchstr.length-2);
-		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
-	}
-}
+// function searchforspoilers(){
+// 	if(spoilerlist["spoilerItem"] != null&&enable_blocker==true) {
+// 		var searchstr="";
+// 		spoilerlist["spoilerItem"].forEach(function(item){
+// 			searchstr = searchstr + "p:contains(" +item+")";
+// 		});
+// 		searchstr = searchstr.substring(0, searchstr.length-2);
+// 		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
+// 	}
+// }
 
 
 

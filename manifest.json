@@ -1,6 +1,6 @@
 {
   "name": "Spoiler blocker",
-  "version": "1.0",
+  "version": "0.0",
   "manifest_version": 2,
   "content_scripts": [
    {

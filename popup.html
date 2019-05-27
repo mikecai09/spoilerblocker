@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Spoiler Blocker</title>
-	<link href="style/options.css" rel="stylesheet" type="text/css" />
 	<script src="jquery-3.4.1.js"></script>
+	<link href="style/options.css" rel="stylesheet" type="text/css" />
 	<script src="script.js"></script>
 </head>
 <body>
@@ -21,12 +21,15 @@
 	<div class="option">
 		<p>Keyword</p>
 		<div class="textbox">
-			<textarea rows="1" cols="20"></textarea>
+			<textarea id="textbox" rows="1" cols="20"></textarea>
 		</div>
 	</div>
 	<div id="listview"></div>
 	<div class="button" id="submit-button">
 		<p>Submit</p>
+	</div>
+	<div class="button" id="clear-button">
+		<p>clear</p>
 	</div>
 </div>
 </body>
