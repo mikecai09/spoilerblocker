@@ -13,7 +13,7 @@ $(function() {
 	updatelistview();
 	loadSettings();
 	setCSS();
-	// searchforspoilers();
+	searchforspoilers();
 
 	$('#yes-button').click(function (evt){
 		enable_blocker = "true";
@@ -63,7 +63,7 @@ $(function() {
 			savespoilerlist();
 			$('#textbox').val('');
 			updatelistview();
-			// searchforspoilers();
+			searchforspoilers();
 		}
 	});
 
@@ -154,13 +154,13 @@ function updatelistview(){
 	}
 }
 
-// function searchforspoilers(){
-// 	if(spoilerlist["spoilerItem"] != null&&enable_blocker==true) {
-// 		var searchstr="";
-// 		spoilerlist["spoilerItem"].forEach(function(item){
-// 			searchstr = searchstr + "p:contains(" +item+")";
-// 		});
-// 		searchstr = searchstr.substring(0, searchstr.length-2);
-// 		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
-// 	}
-// }
+function searchforspoilers(){
+	if(spoilerlist["spoilerItem"] != null&&enable_blocker=="true") {
+		var searchstr = "";
+		spoilerlist["spoilerItem"].forEach(function(item){
+			searchstr = searchstr + "p:contains(" +item+"), ";
+		});
+		searchstr = searchstr.substring(0, searchstr.length-2);
+		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
+	}
+}
