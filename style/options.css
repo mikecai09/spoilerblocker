@@ -44,16 +44,6 @@ header h1{
 	background: #FAEBD7;
 }
 
-#no-button{
-	color: #D3D3D3;
-	background-color: #A9A9A9;
-}
-
-#no-button:hover{
-	cursor: pointer;
-	background-color: #808080;
-}
-
 #save {
 	margin-left: 20px;
 }
