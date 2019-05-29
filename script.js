@@ -15,6 +15,15 @@ $(function() {
 	setCSS();
 	searchforspoilers();
 
+	var observer = new MutationObserver(function(mutations, observer) {
+		searchforspoilers();
+	});
+
+	observer.observe($('[id^="topnews_main_stream_"]').get(0), {
+		subtree: true,
+		attributes: true
+	});
+
 	$('#yes-button').click(function (evt){
 		enable_blocker = "true";
 		localStorage.setItem("value", true);
@@ -74,17 +83,8 @@ $(function() {
 		savespoilerlist();
 		$('#textbox').val('');
 		updatelistview();
-		// searchforspoilers();
+		searchforspoilers();
 	});
-
-	// var observer = new MutationObserver(function(mutations, observer) {
-	// 	searchforspoilers();
-	// });
-
-	// observer.observe($('[id^topnews_main_stream_]').get(0), {
-	// 	subtree: true,
-	// 	attributes: true
-	// });
 
 	function loadSettings(){
 		if(!localStorage.getItem("value")){
