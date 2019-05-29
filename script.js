@@ -15,15 +15,6 @@ $(function() {
 	setCSS();
 	searchforspoilers();
 
-	var observer = new MutationObserver(function(mutations, observer) {
-		searchforspoilers();
-	});
-
-	observer.observe($('[id^="topnews_main_stream_"]').get(0), {
-		subtree: true,
-		attributes: true
-	});
-
 	$('#yes-button').click(function (evt){
 		enable_blocker = "true";
 		localStorage.setItem("value", true);
@@ -86,50 +77,15 @@ $(function() {
 		searchforspoilers();
 	});
 
-	function loadSettings(){
-		if(!localStorage.getItem("value")){
-			enable_blocker = "true";
-		}
-		else {
-			enable_blocker = localStorage.getItem("value");
-		}
-	}
+	var observer = new MutationObserver(function(mutations, observer) {
+		searchforspoilers();
+	});
 
-	function setCSS(){
-		var bool = enable_blocker;
-		if(bool == "true"){
-			$('#yes-button').css('color','black');
-			$('#yes-button').css('background-color','#FFF5EE');
-			$('#yes-button:hover').css('cursor','default');
-			$('#yes-button:hover').css('background-color','#FAEBD7');
+	observer.observe($('[id^="topnews_main_stream_"]').get(0), {
+		subtree: true,
+		attributes: true
+	});
 
-			$('#no-button').css('color','#D3D3D3');
-			$('#no-button').css('background-color','#A9A9A9');
-			$('#no-button:hover').css('cursor','pointer');
-			$('#no-button:hover').css('background-color','#808080');
-
-			$('#submit-button').css('color','black');
-			$('#submit-button').css('background-color','#FFF5EE');
-			$('#submit-button:hover').css('cursor','pointer');
-			$('#submit-button:hover').css('background-color','#FAEBD7');
-		}
-		if(bool == "false") {
-			$('#no-button').css('color','black');
-			$('#no-button').css('background-color','#FFF5EE');
-			$('#no-button:hover').css('cursor','default');
-			$('#no-button:hover').css('background-color','#FAEBD7');
-
-			$('#yes-button').css('color','#D3D3D3');
-			$('#yes-button').css('background-color','#A9A9A9');
-			$('#yes-button:hover').css('cursor','pointer');
-			$('#yes-button:hover').css('background-color','#808080');
-
-			$('#submit-button').css('color','#D3D3D3');
-			$('#submit-button').css('background-color','#A9A9A9');
-			$('#submit-button:hover').css('cursor','default');
-			$('#submit-button:hover').css('background-color','#808080');
-		}
-	}
 });
 
 function savespoilerlist(){
@@ -162,5 +118,50 @@ function searchforspoilers(){
 		});
 		searchstr = searchstr.substring(0, searchstr.length-2);
 		$(searchstr).parents('.userContentWrapper').css('-webkit-filter', 'blur(5px)')
+	}
+}
+
+function loadSettings(){
+		if(!localStorage.getItem("value")){
+			enable_blocker = "true";
+		}
+		else {
+			enable_blocker = localStorage.getItem("value");
+		}
+	}
+
+function setCSS(){
+	var bool = enable_blocker;
+	if(bool == "true"){
+		$('#yes-button').css('color','black');
+		$('#yes-button').css('background-color','#FFF5EE');
+		$('#yes-button:hover').css('cursor','default');
+		$('#yes-button:hover').css('background-color','#FAEBD7');
+
+		$('#no-button').css('color','#D3D3D3');
+		$('#no-button').css('background-color','#A9A9A9');
+		$('#no-button:hover').css('cursor','pointer');
+		$('#no-button:hover').css('background-color','#808080');
+
+		$('#submit-button').css('color','black');
+		$('#submit-button').css('background-color','#FFF5EE');
+		$('#submit-button:hover').css('cursor','pointer');
+		$('#submit-button:hover').css('background-color','#FAEBD7');
+	}
+	if(bool == "false") {
+		$('#no-button').css('color','black');
+		$('#no-button').css('background-color','#FFF5EE');
+		$('#no-button:hover').css('cursor','default');
+		$('#no-button:hover').css('background-color','#FAEBD7');
+
+		$('#yes-button').css('color','#D3D3D3');
+		$('#yes-button').css('background-color','#A9A9A9');
+		$('#yes-button:hover').css('cursor','pointer');
+		$('#yes-button:hover').css('background-color','#808080');
+
+		$('#submit-button').css('color','#D3D3D3');
+		$('#submit-button').css('background-color','#A9A9A9');
+		$('#submit-button:hover').css('cursor','default');
+		$('#submit-button:hover').css('background-color','#808080');
 	}
 }
