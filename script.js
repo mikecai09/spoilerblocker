@@ -81,12 +81,22 @@ $(function() {
 		searchforspoilers();
 	});
 
+	searchWhenAvailable();
+});
+
+function searchWhenAvailable() {
+    var composeBox = document.querySelectorAll('[id^="topnews_main_stream_"]')[2];
+    if(!composeBox) {
+        //The node we need does not exist yet.
+        //Wait 500ms and try again
+        window.setTimeout(addObserverIfDesiredNodeAvailable,500);
+        return;
+    }
 	observer.observe($('[id^="topnews_main_stream_"]').get(0), {
 		subtree: true,
 		attributes: true
 	});
-
-});
+}
 
 function savespoilerlist(){
 	chrome.storage.sync.set({
