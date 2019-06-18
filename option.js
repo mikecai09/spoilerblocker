@@ -9,14 +9,17 @@ chrome.storage.sync.get("spoilerItem", function (results) {
 	}
 });
 
+loadSettings();
 $(function() {
 	updatelistview();
-	loadSettings();
 	setCSS();
-
 	$('#yes-button').click(function (evt){
 		enable_blocker = "true";
-		localStorage.setItem("value", true);
+		// localStorage.setItem("value", enable_blocker);
+
+		chrome.storage.sync.set({"key": enable_blocker},function(){
+			console.log("Message Saved!");
+		});
 
 		$('#yes-button').css('color','black');
 		$('#yes-button').css('background-color','#FFF5EE');
@@ -36,7 +39,10 @@ $(function() {
 
 	$('#no-button').click(function (evt){
 		enable_blocker = "false";
-		localStorage.setItem("value", false);
+		// localStorage.setItem("value", enable_blocker);
+		chrome.storage.sync.set({"key": enable_blocker},function(){
+			console.log("Message Saved!");
+		});
 
 		//grayout submit button
 		$('#no-button').css('color','black');
@@ -98,13 +104,19 @@ function updatelistview(){
 }
 
 function loadSettings(){
-		if(!localStorage.getItem("value")){
+		// if(!localStorage.getItem("value")){
+		// 	enable_blocker = "true";
+		// }
+		// else {
+		// 	enable_blocker = localStorage.getItem("value");
+		// }
+	chrome.storage.sync.get(['key'], function(result) {
+		enable_blocker = result.key;
+		if(enable_blocker == null) {
 			enable_blocker = "true";
 		}
-		else {
-			enable_blocker = localStorage.getItem("value");
-		}
-	}
+    });
+}
 
 function setCSS(){
 	var bool = enable_blocker;

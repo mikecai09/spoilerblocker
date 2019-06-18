@@ -1,8 +1,5 @@
 var spoilerlist;
 var enable_blocker;	
-var observer = new MutationObserver(function(mutations, observer) {
-	searchforspoilers();
-});
 
 chrome.storage.sync.get("spoilerItem", function (results) {
 	spoilerlist = results;
@@ -13,14 +10,23 @@ chrome.storage.sync.get("spoilerItem", function (results) {
 });
 
 $(function() {
-	loadSettings();
-	if(enable_blocker == "true"){
-		searchforspoilers();	
-		observer.observe($('[id^="topnews_main_stream_"]').get(0), {
-			subtree: true,
-			attributes: true
-		});
-	}
+	chrome.storage.sync.get(['key'], function(result) {
+		enable_blocker = result.key;
+		if(enable_blocker == null) {
+			enable_blocker = "true";
+		}
+		if(enable_blocker == "true"){
+			searchforspoilers();
+			var observer = new MutationObserver(function(mutations, observer) {
+				searchforspoilers();
+			});
+			observer.observe($('[id^="topnews_main_stream_"]').get(0), {
+				subtree: true,
+				attributes: true
+			});
+		}
+	});
+	
 });
 
 function searchforspoilers(){
@@ -34,11 +40,12 @@ function searchforspoilers(){
 	}
 }
 
-function loadSettings(){
-	if(!localStorage.getItem("value")){
-		enable_blocker = "true";
-	}
-	else {
-		enable_blocker = localStorage.getItem("value");
-	}
+function savespoilerlist(){
+	chrome.storage.sync.set({
+		'spoilerItem': spoilerlist["spoilerItem"]
+	}, function (results) {
+		if (chrome.runtime.error) {
+			console.log(chrome.runtime.error)
+		}
+	});
 }
