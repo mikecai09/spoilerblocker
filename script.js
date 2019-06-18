@@ -1,5 +1,8 @@
 var spoilerlist;
-var enable_blocker;
+var enable_blocker;	
+var observer = new MutationObserver(function(mutations, observer) {
+	searchforspoilers();
+});
 
 chrome.storage.sync.get("spoilerItem", function (results) {
 	spoilerlist = results;
@@ -13,11 +16,6 @@ $(function() {
 	loadSettings();
 	if(enable_blocker == "true"){
 		searchforspoilers();	
-		
-		var observer = new MutationObserver(function(mutations, observer) {
-			searchforspoilers();
-		});
-
 		observer.observe($('[id^="topnews_main_stream_"]').get(0), {
 			subtree: true,
 			attributes: true
