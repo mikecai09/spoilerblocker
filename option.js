@@ -15,8 +15,6 @@ $(function() {
 	setCSS();
 	$('#yes-button').click(function (evt){
 		enable_blocker = "true";
-		// localStorage.setItem("value", enable_blocker);
-
 		chrome.storage.sync.set({"key": enable_blocker},function(){
 			console.log("Message Saved!");
 		});
@@ -104,12 +102,6 @@ function updatelistview(){
 }
 
 function loadSettings(){
-		// if(!localStorage.getItem("value")){
-		// 	enable_blocker = "true";
-		// }
-		// else {
-		// 	enable_blocker = localStorage.getItem("value");
-		// }
 	chrome.storage.sync.get(['key'], function(result) {
 		enable_blocker = result.key;
 		if(enable_blocker == null) {

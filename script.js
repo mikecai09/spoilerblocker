@@ -26,7 +26,6 @@ $(function() {
 			});
 		}
 	});
-	
 });
 
 function searchforspoilers(){
